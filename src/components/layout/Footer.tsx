@@ -142,14 +142,6 @@ export default function Footer() {
           <p>
             © {new Date().getFullYear()} Rajesh Kumar Jena. All rights reserved.
           </p>
-          <p className="flex items-center gap-1">
-            Built with{' '}
-            <Heart
-              size={12}
-              className="text-purple-500 fill-purple-500 mx-0.5"
-            />{' '}
-            using Next.js & FastAPI
-          </p>
         </div>
       </div>
     </footer>
