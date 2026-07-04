@@ -1,53 +1,67 @@
-"use client";
+'use client';
 
-import { motion } from "framer-motion";
-import { useInView } from "react-intersection-observer";
+import { motion } from 'framer-motion';
+import { useInView } from 'react-intersection-observer';
 import {
-  Code2, Server, Database, Cloud, TestTube, Lightbulb,
-} from "lucide-react";
+  Code2,
+  Server,
+  Database,
+  Cloud,
+  TestTube,
+  Lightbulb,
+} from 'lucide-react';
 
 const skillCategories = [
   {
-    title: "Languages",
+    title: 'Languages',
     icon: Code2,
-    color: "from-purple-500 to-purple-700",
-    skills: ["Python", "JavaScript", "TypeScript", "HTML5", "CSS3"],
+    color: 'from-purple-500 to-purple-700',
+    skills: ['Python', 'Java', 'JavaScript', 'TypeScript', 'HTML5', 'CSS3'],
   },
   {
-    title: "Frontend",
+    title: 'Frontend',
     icon: Code2,
-    color: "from-violet-500 to-purple-600",
-    skills: ["React.js", "Next.js", "Redux", "React Native", "React Router", "React Query", "Context API", "Material UI"],
+    color: 'from-violet-500 to-purple-600',
+    skills: [
+      'React.js',
+      'Next.js',
+      'Redux',
+      'React Native',
+      'React Router',
+      'React Query',
+      'Context API',
+      'Material UI',
+    ],
   },
   {
-    title: "Backend",
+    title: 'Backend',
     icon: Server,
-    color: "from-purple-600 to-pink-600",
-    skills: ["FastAPI", "Django", "Flask", "REST APIs"],
+    color: 'from-purple-600 to-pink-600',
+    skills: ['FastAPI', 'Django', 'Flask', 'REST APIs'],
   },
   {
-    title: "Database",
+    title: 'Database',
     icon: Database,
-    color: "from-pink-500 to-purple-600",
-    skills: ["PostgreSQL", "SQL"],
+    color: 'from-pink-500 to-purple-600',
+    skills: ['PostgreSQL', 'SQL'],
   },
   {
-    title: "Cloud & DevOps",
+    title: 'Cloud & DevOps',
     icon: Cloud,
-    color: "from-purple-500 to-indigo-600",
-    skills: ["AWS EC2", "AWS Amplify", "Docker", "Git", "GitHub"],
+    color: 'from-purple-500 to-indigo-600',
+    skills: ['AWS EC2', 'AWS Amplify', 'Docker', 'Git', 'GitHub'],
   },
   {
-    title: "Testing",
+    title: 'Testing',
     icon: TestTube,
-    color: "from-violet-600 to-purple-500",
-    skills: ["Jest", "React Testing Library", "Pytest", "MSW", "TDD"],
+    color: 'from-violet-600 to-purple-500',
+    skills: ['Jest', 'React Testing Library', 'Pytest', 'MSW', 'TDD'],
   },
   {
-    title: "Concepts",
+    title: 'Concepts',
     icon: Lightbulb,
-    color: "from-purple-400 to-pink-500",
-    skills: ["Microfrontend Architecture", "Async Programming", "DSA"],
+    color: 'from-purple-400 to-pink-500',
+    skills: ['Microfrontend Architecture', 'Async Programming', 'DSA'],
   },
 ];
 
@@ -88,7 +102,7 @@ export default function Skills() {
           ref={ref}
           variants={containerVariants}
           initial="hidden"
-          animate={inView ? "visible" : "hidden"}
+          animate={inView ? 'visible' : 'hidden'}
           className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"
         >
           {skillCategories.map((category) => {

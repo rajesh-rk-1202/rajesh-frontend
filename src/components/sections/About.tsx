@@ -1,13 +1,14 @@
-"use client";
+'use client';
 
-import { motion } from "framer-motion";
-import { useInView } from "react-intersection-observer";
-import { User, MapPin, Briefcase, GraduationCap, Coffee } from "lucide-react";
+import Image from 'next/image';
+import { motion } from 'framer-motion';
+import { useInView } from 'react-intersection-observer';
+import { MapPin, Briefcase, GraduationCap, Coffee } from 'lucide-react';
 
 const stats = [
-  { label: "Years Experience", value: "3+", icon: Briefcase },
-  { label: "Projects Built", value: "10+", icon: GraduationCap },
-  { label: "Technologies", value: "20+", icon: Coffee },
+  { label: 'Years Experience', value: '4+', icon: Briefcase },
+  { label: 'Projects Built', value: '10+', icon: GraduationCap },
+  { label: 'Technologies', value: '20+', icon: Coffee },
 ];
 
 export default function About() {
@@ -42,29 +43,38 @@ export default function About() {
               initial={{ opacity: 0, x: -40 }}
               animate={inView ? { opacity: 1, x: 0 } : {}}
               transition={{ duration: 0.7, delay: 0.2 }}
-              className="flex flex-col items-center lg:items-start gap-8"
+              className="flex flex-col items-center gap-10 lg:mx-auto"
             >
               <div className="relative">
-                {/* Avatar placeholder */}
-                <div className="w-56 h-56 md:w-72 md:h-72 rounded-3xl bg-gradient-to-br from-purple-600 via-purple-500 to-pink-500 p-1 purple-glow-lg">
-                  <div className="w-full h-full rounded-3xl bg-dark-800 dark:bg-dark-900 flex items-center justify-center overflow-hidden">
-                    <div className="text-center">
-                      <div className="w-24 h-24 rounded-full bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center mx-auto mb-3">
-                        <User size={44} className="text-white" />
-                      </div>
-                      <p className="text-purple-300 font-mono text-sm">RKJ</p>
-                    </div>
+                {/* Decorative glow ring */}
+                <div className="absolute -inset-4 rounded-4xl bg-gradient-to-br from-purple-500/30 via-pink-500/20 to-transparent blur-2xl -z-10" />
+
+                {/* Avatar */}
+                <div className="w-64 h-64 md:w-80 md:h-80 rounded-3xl bg-gradient-to-br from-purple-600 via-purple-500 to-pink-500 p-1.5 purple-glow-lg">
+                  <div className="w-full h-full rounded-[1.35rem] overflow-hidden">
+                    <Image
+                      src="/profile.png"
+                      alt="Rajesh Kumar Jena"
+                      width={320}
+                      height={320}
+                      className="w-full h-full object-cover object-top"
+                      priority
+                    />
                   </div>
                 </div>
-                {/* Floating badge */}
+
+                {/* Floating badge - top right */}
                 <motion.div
                   animate={{ y: [0, -8, 0] }}
                   transition={{ repeat: Infinity, duration: 3 }}
-                  className="absolute -bottom-4 -right-4 glass rounded-2xl px-4 py-2 border border-purple-500/30"
+                  className="absolute -top-4 -right-4 z-20 bg-white dark:bg-dark-800 rounded-2xl px-4 py-2.5 border border-purple-500/30 shadow-xl"
                 >
-                  <div className="flex items-center gap-2">
-                    <span className="w-2 h-2 rounded-full bg-green-400 animate-pulse" />
-                    <span className="text-sm font-medium text-gray-700 dark:text-gray-200">
+                  <div className="flex items-center gap-2 whitespace-nowrap">
+                    <span className="relative flex h-2.5 w-2.5">
+                      <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75" />
+                      <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-green-500" />
+                    </span>
+                    <span className="text-sm font-semibold text-gray-700 dark:text-gray-200">
                       Open to Work
                     </span>
                   </div>
@@ -72,14 +82,16 @@ export default function About() {
               </div>
 
               {/* Stats */}
-              <div className="grid grid-cols-3 gap-4 w-full max-w-sm">
+              <div className="grid grid-cols-3 gap-4 w-64 md:w-80">
                 {stats.map(({ label, value, icon: Icon }) => (
                   <motion.div
                     key={label}
-                    whileHover={{ scale: 1.05 }}
-                    className="glass rounded-2xl p-4 text-center border border-purple-500/20 hover:border-purple-500/50 transition-all duration-300"
+                    whileHover={{ scale: 1.06, y: -4 }}
+                    className="glass rounded-2xl p-4 text-center border border-purple-500/20 hover:border-purple-500/50 hover:shadow-lg hover:shadow-purple-500/10 transition-all duration-300 flex flex-col items-center justify-center min-h-27.5"
                   >
-                    <Icon size={20} className="text-purple-400 mx-auto mb-2" />
+                    <div className="w-9 h-9 rounded-xl bg-purple-500/10 flex items-center justify-center mb-2">
+                      <Icon size={18} className="text-purple-500" />
+                    </div>
                     <p className="text-2xl font-bold gradient-text">{value}</p>
                     <p className="text-xs text-gray-500 dark:text-gray-400 mt-1 leading-tight">
                       {label}
@@ -98,7 +110,7 @@ export default function About() {
             >
               <div className="space-y-4">
                 <p className="text-lg text-gray-700 dark:text-gray-300 leading-relaxed">
-                  I&apos;m{" "}
+                  I&apos;m{' '}
                   <span className="text-purple-500 font-semibold">
                     Rajesh Kumar Jena
                   </span>
@@ -107,10 +119,10 @@ export default function About() {
                 </p>
                 <p className="text-base text-gray-600 dark:text-gray-400 leading-relaxed">
                   With experience across frontend and backend technologies, I
-                  enjoy transforming ideas into impactful digital products. I&apos;m
-                  passionate about continuous learning, software architecture,
-                  and building innovative digital solutions that deliver
-                  real-world impact.
+                  enjoy transforming ideas into impactful digital products.
+                  I&apos;m passionate about continuous learning, software
+                  architecture, and building innovative digital solutions that
+                  deliver real-world impact.
                 </p>
               </div>
 
@@ -135,7 +147,11 @@ export default function About() {
                 <motion.button
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
-                  onClick={() => document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" })}
+                  onClick={() =>
+                    document
+                      .getElementById('contact')
+                      ?.scrollIntoView({ behavior: 'smooth' })
+                  }
                   className="px-6 py-3 bg-purple-600 hover:bg-purple-700 text-white font-semibold rounded-xl transition-all duration-300 hover:shadow-lg hover:shadow-purple-500/30"
                 >
                   Let&apos;s Talk
@@ -143,7 +159,11 @@ export default function About() {
                 <motion.button
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
-                  onClick={() => document.getElementById("projects")?.scrollIntoView({ behavior: "smooth" })}
+                  onClick={() =>
+                    document
+                      .getElementById('projects')
+                      ?.scrollIntoView({ behavior: 'smooth' })
+                  }
                   className="px-6 py-3 glass border border-purple-500/30 text-gray-700 dark:text-gray-200 font-semibold rounded-xl hover:border-purple-500 transition-all duration-300"
                 >
                   My Projects
