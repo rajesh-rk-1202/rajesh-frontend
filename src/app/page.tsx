@@ -11,7 +11,7 @@ export default function Home() {
   return (
     <div className="relative min-h-screen bg-white dark:bg-dark-900 overflow-x-hidden">
       <Navbar />
-      <main>
+      <main className="pt-16 md:pt-20">
         <Hero />
         <About />
         <Skills />
