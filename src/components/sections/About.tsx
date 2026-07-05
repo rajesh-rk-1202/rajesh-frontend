@@ -15,7 +15,7 @@ export default function About() {
   const { ref, inView } = useInView({ threshold: 0.1, triggerOnce: true });
 
   return (
-    <section id="about" className="py-24 lg:py-32 relative overflow-hidden">
+    <section id="about" className="py-14 lg:py-20 relative overflow-hidden">
       {/* Background blob */}
       <div className="blob w-72 h-72 bg-purple-600 top-1/2 right-0 translate-x-1/2 -translate-y-1/2" />
 

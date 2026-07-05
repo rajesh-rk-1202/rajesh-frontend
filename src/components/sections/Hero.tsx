@@ -144,7 +144,7 @@ export default function Hero() {
   return (
     <section
       id="home"
-      className="relative min-h-screen flex items-center justify-center overflow-hidden"
+      className="relative min-h-0 py-20 lg:min-h-screen lg:py-0 flex items-center justify-center overflow-hidden"
     >
       {/* Background blobs */}
       <div className="blob w-96 h-96 bg-purple-600 top-1/4 -left-24 animate-float" />
@@ -173,7 +173,7 @@ export default function Hero() {
         }}
       />
 
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-20">
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           variants={containerVariants}
           initial="hidden"

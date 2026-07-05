@@ -79,7 +79,7 @@ export default function Skills() {
   const { ref, inView } = useInView({ threshold: 0.05, triggerOnce: true });
 
   return (
-    <section id="skills" className="py-24 lg:py-32 relative overflow-hidden">
+    <section id="skills" className="py-14 lg:py-20 relative overflow-hidden">
       <div className="blob w-80 h-80 bg-purple-700 -bottom-20 -left-20" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
