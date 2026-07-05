@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from 'next/font/google';
 import './globals.css';
 import { ThemeProvider } from '@/components/providers/ThemeProvider';
 import { Toaster } from 'react-hot-toast';
+import VisitTracker from '@/components/analytics/VisitTracker';
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -43,6 +44,7 @@ export default function RootLayout({
     >
       <body className="min-h-full flex flex-col antialiased">
         <ThemeProvider>
+          <VisitTracker />
           {children}
           <Toaster
             position="bottom-right"
