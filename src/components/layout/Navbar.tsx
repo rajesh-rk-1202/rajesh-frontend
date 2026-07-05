@@ -42,10 +42,23 @@ export default function Navbar() {
   }, []);
 
   const scrollTo = (href: string) => {
-    setMobileOpen(false);
     const id = href.replace('#', '');
-    const el = document.getElementById(id);
-    if (el) el.scrollIntoView({ behavior: 'smooth' });
+    const wasMobileOpen = mobileOpen;
+    setMobileOpen(false);
+
+    const scroll = () => {
+      const el = document.getElementById(id);
+      if (el) el.scrollIntoView({ behavior: 'smooth' });
+    };
+
+    // If the mobile menu is open, let its collapse animation finish first.
+    // Triggering scrollIntoView while the menu is still animating causes
+    // some mobile browsers to cancel the smooth-scroll mid-way.
+    if (wasMobileOpen) {
+      setTimeout(scroll, 300);
+    } else {
+      scroll();
+    }
   };
 
   return (
