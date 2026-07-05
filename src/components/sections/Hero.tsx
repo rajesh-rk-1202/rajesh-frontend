@@ -2,14 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { motion, type Variants } from 'framer-motion';
-import {
-  ArrowDown,
-  Github,
-  Linkedin,
-  Twitter,
-  Mail,
-  Download,
-} from 'lucide-react';
+import { Github, Linkedin, Twitter, Mail, Download } from 'lucide-react';
 import { collection, getDocs, orderBy, query } from 'firebase/firestore';
 import { db } from '@/lib/firebase';
 
@@ -270,26 +263,6 @@ export default function Hero() {
                 </motion.a>
               );
             })}
-          </motion.div>
-        </motion.div>
-
-        {/* Scroll indicator */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 1.5 }}
-          className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 cursor-pointer"
-          onClick={scrollToAbout}
-        >
-          <span className="text-xs text-gray-500 dark:text-gray-500 tracking-widest uppercase font-mono">
-            Scroll
-          </span>
-          <motion.div
-            animate={{ y: [0, 8, 0] }}
-            transition={{ repeat: Infinity, duration: 1.5 }}
-            className="text-purple-500"
-          >
-            <ArrowDown size={20} />
           </motion.div>
         </motion.div>
       </div>
