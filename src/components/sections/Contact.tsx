@@ -1,13 +1,13 @@
-"use client";
+'use client';
 
-import { useState } from "react";
-import { motion } from "framer-motion";
-import { useInView } from "react-intersection-observer";
-import { Send, Mail, MapPin, Loader2, CheckCircle } from "lucide-react";
-import toast from "react-hot-toast";
-import axios from "axios";
+import { useState } from 'react';
+import { motion } from 'framer-motion';
+import { useInView } from 'react-intersection-observer';
+import { Send, Mail, MapPin, Loader2, CheckCircle } from 'lucide-react';
+import toast from 'react-hot-toast';
+import axios from 'axios';
 
-const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
+const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
 
 interface FormState {
   name: string;
@@ -19,16 +19,16 @@ interface FormState {
 export default function Contact() {
   const { ref, inView } = useInView({ threshold: 0.1, triggerOnce: true });
   const [form, setForm] = useState<FormState>({
-    name: "",
-    email: "",
-    subject: "",
-    message: "",
+    name: '',
+    email: '',
+    subject: '',
+    message: '',
   });
   const [loading, setLoading] = useState(false);
   const [sent, setSent] = useState(false);
 
   const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
   ) => {
     setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
@@ -36,17 +36,29 @@ export default function Contact() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!form.name || !form.email || !form.message) {
-      toast.error("Please fill in all required fields.");
+      toast.error('Please fill in all required fields.');
       return;
     }
     setLoading(true);
     try {
-      await axios.post(`${API_URL}/api/contact`, form);
+      try {
+        await axios.post(`${API_URL}/api/contact`, form, { timeout: 8000 });
+      } catch (err) {
+        // Backend may be a free-tier instance waking up from sleep — retry once with a longer timeout
+        const isTimeoutOrNetwork =
+          axios.isAxiosError(err) &&
+          (err.code === 'ECONNABORTED' || !err.response);
+        if (!isTimeoutOrNetwork) throw err;
+        toast('Server is waking up, please wait a moment…', { icon: '⏳' });
+        await axios.post(`${API_URL}/api/contact`, form, { timeout: 20000 });
+      }
       setSent(true);
       toast.success("Message sent! I'll get back to you soon.");
-      setForm({ name: "", email: "", subject: "", message: "" });
+      setForm({ name: '', email: '', subject: '', message: '' });
     } catch {
-      toast.error("Something went wrong. Please try again.");
+      toast.error(
+        "Couldn't reach the server. Please email me directly at jenarajeshkumar768@gmail.com.",
+      );
     } finally {
       setLoading(false);
     }
@@ -68,8 +80,8 @@ export default function Contact() {
           </h2>
           <div className="w-24 h-1 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full" />
           <p className="mt-4 text-gray-500 dark:text-gray-400 max-w-xl">
-            Have a project in mind or want to collaborate? I&apos;d love to hear from
-            you.
+            Have a project in mind or want to collaborate? I&apos;d love to hear
+            from you.
           </p>
         </div>
 
@@ -87,8 +99,8 @@ export default function Contact() {
                 Let&apos;s work together
               </h3>
               <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">
-                I&apos;m always open to discussing new projects, creative ideas, or
-                opportunities to be part of your vision.
+                I&apos;m always open to discussing new projects, creative ideas,
+                or opportunities to be part of your vision.
               </p>
 
               <div className="space-y-4">
@@ -100,7 +112,9 @@ export default function Contact() {
                     <Mail size={16} className="text-purple-400" />
                   </div>
                   <div>
-                    <p className="text-xs text-gray-500 dark:text-gray-400">Email</p>
+                    <p className="text-xs text-gray-500 dark:text-gray-400">
+                      Email
+                    </p>
                     <p className="text-sm font-medium text-gray-800 dark:text-gray-200 group-hover:text-purple-500 transition-colors break-all">
                       jenarajeshkumar768@gmail.com
                     </p>
@@ -112,7 +126,9 @@ export default function Contact() {
                     <MapPin size={16} className="text-purple-400" />
                   </div>
                   <div>
-                    <p className="text-xs text-gray-500 dark:text-gray-400">Location</p>
+                    <p className="text-xs text-gray-500 dark:text-gray-400">
+                      Location
+                    </p>
                     <p className="text-sm font-medium text-gray-800 dark:text-gray-200">
                       India
                     </p>
@@ -226,7 +242,7 @@ export default function Contact() {
                     ) : (
                       <Send size={18} />
                     )}
-                    {loading ? "Sending..." : "Send Message"}
+                    {loading ? 'Sending...' : 'Send Message'}
                   </motion.button>
                 </form>
               )}

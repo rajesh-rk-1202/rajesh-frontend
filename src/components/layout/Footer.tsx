@@ -32,31 +32,36 @@ const navLinks = [
 export default function Footer() {
   const [socials, setSocials] = useState<SocialLink[]>([]);
 
+  const fallbackSocials: SocialLink[] = [
+    {
+      id: 1,
+      platform: 'github',
+      url: 'https://github.com/rajesh-rk-1202',
+      icon: 'github',
+    },
+    {
+      id: 2,
+      platform: 'linkedin',
+      url: 'https://www.linkedin.com/in/rajesh-kumar-jena-96817b190/',
+      icon: 'linkedin',
+    },
+    {
+      id: 3,
+      platform: 'email',
+      url: 'mailto:jenarajeshkumar768@gmail.com',
+      icon: 'email',
+    },
+  ];
+
   useEffect(() => {
     axios
-      .get(`${API_URL}/api/socials`)
-      .then((r: { data: SocialLink[] }) => setSocials(r.data))
+      .get(`${API_URL}/api/socials`, { timeout: 8000 })
+      .then((r: { data: SocialLink[] }) => {
+        setSocials(r.data?.length ? r.data : fallbackSocials);
+      })
       .catch(() => {
-        setSocials([
-          {
-            id: 1,
-            platform: 'github',
-            url: 'https://github.com',
-            icon: 'github',
-          },
-          {
-            id: 2,
-            platform: 'linkedin',
-            url: 'https://linkedin.com',
-            icon: 'linkedin',
-          },
-          {
-            id: 3,
-            platform: 'email',
-            url: 'mailto:jenarajeshkumar768@gmail.com',
-            icon: 'email',
-          },
-        ]);
+        // Backend may be asleep (cold start) or unreachable — use known links so the UI never breaks
+        setSocials(fallbackSocials);
       });
   }, []);
 
