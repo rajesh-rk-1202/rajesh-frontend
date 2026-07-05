@@ -85,7 +85,7 @@ export default function Navbar() {
             <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-purple-500 to-purple-700 flex items-center justify-center purple-glow group-hover:purple-glow-lg transition-all duration-300">
               <Code2 size={18} className="text-white" />
             </div>
-            <span className="font-bold text-lg hidden sm:block">
+            <span className="font-bold text-lg block">
               <span className="gradient-text">Rajesh</span>
               <span className="text-gray-700 dark:text-gray-200">.dev</span>
             </span>
