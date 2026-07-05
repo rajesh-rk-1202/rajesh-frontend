@@ -234,7 +234,7 @@ export default function Hero() {
             <motion.a
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              href="/resume.pdf"
+              href="https://drive.google.com/uc?export=download&id=1LmLL43STUVo3K7nKAVR1YLr1qJGy9UuW"
               target="_blank"
               rel="noopener noreferrer"
               className="px-8 py-4 glass border border-purple-500/40 text-gray-700 dark:text-gray-200 font-semibold rounded-2xl hover:border-purple-500 hover:text-purple-500 transition-all duration-300 flex items-center gap-2"
