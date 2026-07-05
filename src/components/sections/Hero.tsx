@@ -2,7 +2,16 @@
 
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { ArrowDown, Github, Linkedin, Mail, Download } from 'lucide-react';
+import {
+  ArrowDown,
+  Github,
+  Linkedin,
+  Twitter,
+  Mail,
+  Download,
+} from 'lucide-react';
+import { collection, getDocs, orderBy, query } from 'firebase/firestore';
+import { db } from '@/lib/firebase';
 
 const TITLES = [
   'Full Stack Developer',
@@ -60,10 +69,39 @@ function useTypingAnimation(titles: string[], speed = 80, pause = 1800) {
   return state.displayed;
 }
 
-const socialLinks = [
-  { icon: Github, href: 'https://github.com', label: 'GitHub' },
-  { icon: Linkedin, href: 'https://linkedin.com', label: 'LinkedIn' },
-  { icon: Mail, href: 'mailto:jenarajeshkumar768@gmail.com', label: 'Email' },
+interface SocialLink {
+  id: string | number;
+  platform: string;
+  url: string;
+  icon: string;
+}
+
+const iconMap: Record<string, React.ElementType> = {
+  github: Github,
+  linkedin: Linkedin,
+  twitter: Twitter,
+  email: Mail,
+};
+
+const fallbackSocials: SocialLink[] = [
+  {
+    id: 1,
+    platform: 'github',
+    url: 'https://github.com/rajesh-rk-1202',
+    icon: 'github',
+  },
+  {
+    id: 2,
+    platform: 'linkedin',
+    url: 'https://www.linkedin.com/in/rajesh-kumar-jena-96817b190/',
+    icon: 'linkedin',
+  },
+  {
+    id: 3,
+    platform: 'email',
+    url: 'mailto:jenarajeshkumar768@gmail.com',
+    icon: 'email',
+  },
 ];
 
 const containerVariants = {
@@ -81,9 +119,27 @@ const itemVariants = {
 
 export default function Hero() {
   const typedText = useTypingAnimation(TITLES);
+  const [socials, setSocials] = useState<SocialLink[]>(fallbackSocials);
   const scrollToAbout = () => {
     document.getElementById('about')?.scrollIntoView({ behavior: 'smooth' });
   };
+
+  useEffect(() => {
+    const fetchSocials = async () => {
+      try {
+        const q = query(collection(db, 'socials'), orderBy('order'));
+        const snapshot = await getDocs(q);
+        const data = snapshot.docs.map((doc) => ({
+          id: doc.id,
+          ...(doc.data() as Omit<SocialLink, 'id'>),
+        }));
+        setSocials(data.length ? data : fallbackSocials);
+      } catch {
+        setSocials(fallbackSocials);
+      }
+    };
+    fetchSocials();
+  }, []);
 
   return (
     <section
@@ -197,20 +253,23 @@ export default function Hero() {
 
           {/* Social links */}
           <motion.div variants={itemVariants} className="flex gap-3">
-            {socialLinks.map(({ icon: Icon, href, label }) => (
-              <motion.a
-                key={label}
-                href={href}
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label={label}
-                whileHover={{ scale: 1.15, y: -3 }}
-                whileTap={{ scale: 0.9 }}
-                className="w-11 h-11 glass rounded-xl flex items-center justify-center text-gray-600 dark:text-gray-400 hover:text-purple-500 dark:hover:text-purple-400 hover:border-purple-500/50 border border-transparent transition-all duration-200"
-              >
-                <Icon size={20} />
-              </motion.a>
-            ))}
+            {socials.map((social) => {
+              const Icon = iconMap[social.icon] || Mail;
+              return (
+                <motion.a
+                  key={social.id}
+                  href={social.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={social.platform}
+                  whileHover={{ scale: 1.15, y: -3 }}
+                  whileTap={{ scale: 0.9 }}
+                  className="w-11 h-11 glass rounded-xl flex items-center justify-center text-gray-600 dark:text-gray-400 hover:text-purple-500 dark:hover:text-purple-400 hover:border-purple-500/50 border border-transparent transition-all duration-200"
+                >
+                  <Icon size={20} />
+                </motion.a>
+              );
+            })}
           </motion.div>
         </motion.div>
 

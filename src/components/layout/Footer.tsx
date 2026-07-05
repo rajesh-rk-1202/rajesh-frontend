@@ -3,12 +3,11 @@
 import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { Github, Linkedin, Twitter, Mail, Code2, Heart } from 'lucide-react';
-import axios from 'axios';
-
-const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
+import { collection, getDocs, orderBy, query } from 'firebase/firestore';
+import { db } from '@/lib/firebase';
 
 interface SocialLink {
-  id: number;
+  id: string | number;
   platform: string;
   url: string;
   icon: string;
@@ -54,15 +53,21 @@ export default function Footer() {
   ];
 
   useEffect(() => {
-    axios
-      .get(`${API_URL}/api/socials`, { timeout: 8000 })
-      .then((r: { data: SocialLink[] }) => {
-        setSocials(r.data?.length ? r.data : fallbackSocials);
-      })
-      .catch(() => {
-        // Backend may be asleep (cold start) or unreachable — use known links so the UI never breaks
+    const fetchSocials = async () => {
+      try {
+        const q = query(collection(db, 'socials'), orderBy('order'));
+        const snapshot = await getDocs(q);
+        const data = snapshot.docs.map((doc) => ({
+          id: doc.id,
+          ...(doc.data() as Omit<SocialLink, 'id'>),
+        }));
+        setSocials(data.length ? data : fallbackSocials);
+      } catch {
+        // Firestore unreachable — use known links so the UI never breaks
         setSocials(fallbackSocials);
-      });
+      }
+    };
+    fetchSocials();
   }, []);
 
   const scrollTo = (href: string) => {

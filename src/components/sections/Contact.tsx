@@ -5,9 +5,8 @@ import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
 import { Send, Mail, MapPin, Loader2, CheckCircle } from 'lucide-react';
 import toast from 'react-hot-toast';
-import axios from 'axios';
-
-const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
+import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
+import { db } from '@/lib/firebase';
 
 interface FormState {
   name: string;
@@ -41,23 +40,16 @@ export default function Contact() {
     }
     setLoading(true);
     try {
-      try {
-        await axios.post(`${API_URL}/api/contact`, form, { timeout: 8000 });
-      } catch (err) {
-        // Backend may be a free-tier instance waking up from sleep — retry once with a longer timeout
-        const isTimeoutOrNetwork =
-          axios.isAxiosError(err) &&
-          (err.code === 'ECONNABORTED' || !err.response);
-        if (!isTimeoutOrNetwork) throw err;
-        toast('Server is waking up, please wait a moment…', { icon: '⏳' });
-        await axios.post(`${API_URL}/api/contact`, form, { timeout: 20000 });
-      }
+      await addDoc(collection(db, 'contacts'), {
+        ...form,
+        createdAt: serverTimestamp(),
+      });
       setSent(true);
       toast.success("Message sent! I'll get back to you soon.");
       setForm({ name: '', email: '', subject: '', message: '' });
     } catch {
       toast.error(
-        "Couldn't reach the server. Please email me directly at jenarajeshkumar768@gmail.com.",
+        "Couldn't send your message. Please email me directly at jenarajeshkumar768@gmail.com.",
       );
     } finally {
       setLoading(false);
