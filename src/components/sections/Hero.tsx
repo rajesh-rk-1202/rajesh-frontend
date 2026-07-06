@@ -10,6 +10,7 @@ const TITLES = [
   'Full Stack Developer',
   'React & Next.js Expert',
   'Python & FastAPI Builder',
+  'Android & iOS App Developer',
   'Problem Solver',
 ];
 
