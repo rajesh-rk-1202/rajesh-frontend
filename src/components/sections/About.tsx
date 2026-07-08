@@ -87,7 +87,7 @@ export default function About() {
                   <motion.div
                     key={label}
                     whileHover={{ scale: 1.06, y: -4 }}
-                    className="glass rounded-2xl p-4 text-center border border-purple-500/20 hover:border-purple-500/50 hover:shadow-lg hover:shadow-purple-500/10 transition-all duration-300 flex flex-col items-center justify-center min-h-27.5"
+                    className="glass rounded-2xl p-4 text-center border border-purple-500/20 hover:border-purple-500/50 hover:shadow-lg hover:shadow-purple-500/10 transition-all duration-300 flex flex-col items-center justify-start min-h-27.5"
                   >
                     <div className="w-9 h-9 rounded-xl bg-purple-500/10 flex items-center justify-center mb-2">
                       <Icon size={18} className="text-purple-500" />
