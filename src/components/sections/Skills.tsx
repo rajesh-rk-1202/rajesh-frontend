@@ -43,7 +43,7 @@ const skillCategories = [
     title: 'Database',
     icon: Database,
     color: 'from-pink-500 to-purple-600',
-    skills: ['PostgreSQL', 'SQL'],
+    skills: ['PostgreSQL', 'MySQL', 'MongoDB'],
   },
   {
     title: 'Cloud & DevOps',
