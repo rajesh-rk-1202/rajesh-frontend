@@ -8,11 +8,31 @@ import {
   Layers,
   ShoppingCart,
   Globe,
+  LayoutDashboard,
 } from 'lucide-react';
 
 const projects = [
   {
     id: 1,
+    title: 'Code Dashboard',
+    description:
+      'A local full-stack coding activity dashboard that connects to Git repositories and turns every newly added source file into a solved-problem record. It visualizes problem-solving streaks, GitHub-style contribution heatmaps, language distributions, and daily timelines through a Next.js frontend, while a FastAPI and SQLAlchemy backend using SQLite handles repository scanning, persistence, and incremental sync.',
+    tags: [
+      'Next.js 14',
+      'React',
+      'TypeScript',
+      'FastAPI',
+      'Python',
+      'SQLAlchemy',
+    ],
+    icon: LayoutDashboard,
+    color: 'from-blue-500 to-cyan-600',
+    github: 'https://github.com',
+    live: null,
+    featured: true,
+  },
+  {
+    id: 2,
     title: 'Plannr',
     description:
       'A production-ready project management platform inspired by Azure Boards. Enables teams to create and manage projects, user stories, work items, and tasks with seamless assignment workflows. Features a role-based access system for secure, efficient management across teams.',
@@ -31,7 +51,7 @@ const projects = [
     featured: true,
   },
   {
-    id: 2,
+    id: 3,
     title: 'Food Ordering App',
     description:
       'An online food ordering platform with a shopping cart, real-time order tracking, and geolocation-based services. Built a robust FastAPI backend for user authentication, order management, and instant data access via REST APIs.',
@@ -50,7 +70,7 @@ const projects = [
     featured: true,
   },
   {
-    id: 3,
+    id: 4,
     title: 'Worldwise',
     description:
       'An interactive travel logging platform that lets users document and organise trip histories across multiple locations. Integrated GPS functionality for precise location tracking, detailed travel maps, and journey analytics.',
