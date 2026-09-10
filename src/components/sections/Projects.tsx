@@ -27,7 +27,7 @@ const projects = [
     ],
     icon: LayoutDashboard,
     color: 'from-blue-500 to-cyan-600',
-    github: 'https://github.com',
+    github: 'https://github.com/rajesh-rk-1202/rajesh-frontend',
     live: null,
     featured: true,
   },
