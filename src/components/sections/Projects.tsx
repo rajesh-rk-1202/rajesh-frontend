@@ -9,6 +9,7 @@ import {
   ShoppingCart,
   Globe,
   LayoutDashboard,
+  ShieldBan,
 } from 'lucide-react';
 
 const projects = [
@@ -52,6 +53,25 @@ const projects = [
   },
   {
     id: 3,
+    title: 'Ad Blocker',
+    description:
+      'A personal Chrome extension (Manifest V3) that removes YouTube ads and blocks common third-party ad and tracker domains. Combines a static declarativeNetRequest ruleset for network-level blocking with a content script that drives the YouTube player directly — skipping pre-roll, mid-roll and overlay ads, muting and fast-forwarding unskippable ones, and dismissing the "ad blocker detected" modal. Cosmetic filtering is scoped to a toggleable class so all settings apply live without a reload, and a service worker tracks per-tab and all-time block counts for the badge and popup.',
+    tags: [
+      'JavaScript',
+      'Chrome Extension',
+      'Manifest V3',
+      'declarativeNetRequest',
+      'Service Worker',
+      'Node.js',
+    ],
+    icon: ShieldBan,
+    color: 'from-emerald-500 to-teal-600',
+    github: 'https://github.com/rajesh-rk-1202/Ad-Blocker',
+    live: null,
+    featured: true,
+  },
+  {
+    id: 4,
     title: 'Food Ordering App',
     description:
       'An online food ordering platform with a shopping cart, real-time order tracking, and geolocation-based services. Built a robust FastAPI backend for user authentication, order management, and instant data access via REST APIs.',
@@ -70,7 +90,7 @@ const projects = [
     featured: true,
   },
   {
-    id: 4,
+    id: 5,
     title: 'Worldwise',
     description:
       'An interactive travel logging platform that lets users document and organise trip histories across multiple locations. Integrated GPS functionality for precise location tracking, detailed travel maps, and journey analytics.',
